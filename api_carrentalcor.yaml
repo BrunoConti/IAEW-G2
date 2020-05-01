@@ -1,0 +1,112 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: CarRentalCor S.A.
+  license:
+    name: MIT
+servers:
+  - url: 'url_amazon'
+paths:
+  /vehiculos:
+    get:
+      summary: Listar vehículos disponibles entre fechas
+      operationId: listarVehiculos
+      tags:
+        - vehiculos
+      responses:
+        '200':
+          description: El sistema procesó la petición correctamente
+  '/reservas/{idReserva}':
+    get:
+      summary: Mostrar reserva por id
+      operationId: mostrarReserva
+      tags:
+        - reservas
+      parameters:
+        - name: idReserva
+          in: path
+          description: Identificador de la reserva
+          required: true
+          schema:
+            type: integer
+            format: int16
+      responses:
+        '200':
+          description: El sistema procesó la petición correctamente
+    delete:
+      summary: Cancelar una reserva
+      operationId: cancelarReserva
+      tags:
+        - reservas
+      parameters:
+        - name: idReserva
+          in: path
+          description: Identificador de la reserva
+          required: true
+          schema:
+            type: integer
+            format: int16
+      responses:
+        '204':
+          description: La reserva se canceló correctamente
+  /reservas:
+    get:
+      summary: Mostrar reservas de un usuario
+      operationId: mostrarReservasUsario
+      tags:
+        - reservas
+      parameters:
+        - name: idUsuario
+          in: query
+          description: Identificador del usuario
+          required: true
+          schema:
+            type: integer
+            format: int16
+      responses:
+        '200':
+          description: El sistema procesó la petición correctamente
+    post:
+      summary: Crear una reserva de un vehículo
+      operationId: crearReserva
+      tags:
+        - reservas
+      responses:
+        '201':
+          description: El sistema creó la reserva correctamente
+  /ciudades:
+    get:
+      summary: Listar ciudades de un país donde el proveedor presta servicios
+      operationId: listarCiudades
+      tags:
+        - ciudades
+      parameters:
+        - name: idPais
+          in: query
+          description: Identificador del país al que pertenecen las ciudades listadas
+          required: true
+          schema:
+            type: integer
+            format: int16
+      responses:
+        '200':
+          description: El sistema procesó la petición correctamente
+  /paises:
+    get:
+      summary: Listar los países donde el proveedor presta servicios
+      operationId: listarPaises
+      tags:
+        - paises
+      responses:
+        '200':
+          description: El sistema procesó la petición correctamente
+  /login:
+    post:
+      summary: 'Iniciar Sesión'
+      description: 'Inicia sesión en el sistema y genera un token OAuth'
+      operationId: 'iniciarSesion'
+      tags:
+        - login
+      responses:
+        '201':
+          description: 'El usuario se autenticó correctamente'
